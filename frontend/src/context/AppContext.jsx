@@ -6,8 +6,8 @@ import { toast } from "react-toastify";
 
 const AppContextProvider = (props) => {
   const currencySymbol = "₹";
-  // const backendUrl = `https://docontime.onrender.com`;
-  const backendUrl = `http://localhost:4000`;
+  const backendUrl = `https://docontime-z628.onrender.com`;
+  // const backendUrl = `http://localhost:4000`;
 
   const [doctors, setDoctors] = useState([]);
   const [token, setToken] = useState(localStorage.getItem('token')?localStorage.getItem('token'):false);
@@ -16,8 +16,8 @@ const AppContextProvider = (props) => {
 
   const getDoctorsData = async () => {
     try {
-      // const { data } = await axios.get(`https://docontime.onrender.com` + "/api/doctor/list");
-      const { data } = await axios.get(`http://localhost:4000` + "/api/doctor/list");
+      const { data } = await axios.get(`https://docontime-z628.onrender.com` + "/api/doctor/list");
+      // const { data } = await axios.get(`http://localhost:4000` + "/api/doctor/list");
       if (data.success) {
         setDoctors(data.doctors);
       } else {
@@ -31,8 +31,8 @@ const AppContextProvider = (props) => {
 
   const loadUserProfileData = async()=>{
     try {
-      // const {data} = await axios.get(`https://docontime.onrender.com` + '/api/user/get-profile',{headers:{token}})
-      const {data} = await axios.get(`http://localhost:4000` + '/api/user/get-profile',{headers:{token}})
+      const {data} = await axios.get(`https://docontime-z628.onrender.com` + '/api/user/get-profile',{headers:{token}})
+      // const {data} = await axios.get(`http://localhost:4000` + '/api/user/get-profile',{headers:{token}})
       if(data.success){
         setUserData(data.userData);
       }else{
