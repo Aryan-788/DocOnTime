@@ -5,7 +5,7 @@ export const AppContext = createContext();
 import { toast } from "react-toastify";
 
 const AppContextProvider = (props) => {
-  const currencySymbol = "$";
+  const currencySymbol = "₹";
   // const backendUrl = `https://docontime.onrender.com`;
   const backendUrl = `http://localhost:4000`;
 

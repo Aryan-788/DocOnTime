@@ -10,6 +10,9 @@ const AdminContextProvider = (props) => {
   const [aToken, setAToken] = useState(
     localStorage.getItem("aToken") ? localStorage.getItem("aToken") : ""
   );
+
+  const [apppointments, setAppointments] = useState([]);
+
   // const backendUrl = "https://docontime.onrender.com";
   const backendUrl = "http://localhost:4000";
 
@@ -47,6 +50,24 @@ const AdminContextProvider = (props) => {
       toast.error(error.message);
     }
   };
+
+  const getAllAppointments = async () => {
+
+    try{
+      const { data } = await axios.get(backendUrl + '/api/admin/appointments', { headers: { aToken } });
+
+      if(data.success){
+        setAppointments(data.appointments);
+        console.log(data.appointments);
+      }else{
+        toast.error(data.message);
+      }
+    }catch (error) {
+      console.log(error);
+      toast.error(error.message);
+    }
+  }
+
   const value = {
     aToken,
     setAToken,
@@ -54,6 +75,9 @@ const AdminContextProvider = (props) => {
     doctors,
     getAllDoctors,
     changeAvailability,
+    apppointments,
+    getAllAppointments,
+    setAppointments
   };
 
   return (

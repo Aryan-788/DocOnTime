@@ -2,7 +2,7 @@ import React from 'react'
 import { assets } from '../assets/assets'
 
 const Header = () => {
-  return (
+  return ( 
 <div className="relative rounded-lg overflow-hidden shadow-md bg-white/opacity shadow-header-shadow ">
   {/* Video Background */}
   <video

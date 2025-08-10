@@ -348,7 +348,7 @@ const cancelAppointment = async (req, res) => {
 //!API TO MAKE THE PAYMENTS FOR THE APPOINTMENTS USING RAZORPAY
 const razorpayInstance = new razorpay({
   key_id: process.env.RAZORPAY_KEY_ID,
-  key_secret: process.env.RAZORPAY_KEY_SECRET,
+  key_secret: process.env.RAZORPAY_KEY_SECRET
 });
 
 const paymentRazorpay = async (req, res) => {
@@ -386,6 +386,37 @@ const paymentRazorpay = async (req, res) => {
   }
 };
 
+const verifyRazorpay = async(req, res) =>{
+  try {
+    // Verify the payment signature
+    const { razorpay_order_id } = req.body;
+    const orderInfo = await razorpayInstance.orders.fetch(razorpay_order_id);
+
+    if(orderInfo.status === 'paid') {
+      // Update the appointment status to paid
+      await appointmentModel.findByIdAndUpdate(orderInfo.receipt, { payment: true});
+      res.status(200).json({
+        success: true,
+        message: "Payment verified successfully",
+      });
+    }else{
+      res.json({
+        success: false,
+        message: "Payment verification failed",
+      });
+    }
+
+    
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      success: false,
+      message: error.message,
+    });
+  }
+
+}
+
 export {
   registerUser,
   loginUser,
@@ -394,6 +425,7 @@ export {
   bookAppointment,
   listAppointment,
   cancelAppointment,
-  paymentRazorpay
+  paymentRazorpay,
+  verifyRazorpay
 
 };

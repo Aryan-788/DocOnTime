@@ -7,7 +7,8 @@ import {
   bookAppointment,
   listAppointment,
   cancelAppointment,
-  paymentRazorpay
+  paymentRazorpay,
+  verifyRazorpay
   
 } from "../controllers/userController.js";
 import authUser from "../middlewares/authUser.js";
@@ -32,6 +33,7 @@ userRouter.post("/book-appointment", authUser, bookAppointment);
 // authUser middleware will also give the userId
 userRouter.get("/appointments", authUser, listAppointment);
 userRouter.post("/cancel-appointment", authUser, cancelAppointment);
-userRouter.post("/payment", authUser, paymentRazorpay);
+userRouter.post("/payment-razorpay", authUser, paymentRazorpay);
+userRouter.post("/verifyRazorpay", authUser, verifyRazorpay);
 
 export default userRouter;
